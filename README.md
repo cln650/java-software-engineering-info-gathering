@@ -8,13 +8,8 @@
     * [Manual checking](#manual-check)
  * [Security](#security)
     * [Auditing for OWASP Top 10](#owasp)
-    * [TLS](#tls)
+    * [SSL/TLS](#tls)
     * [Security Headers](#security-headers)
- * [Authentication Protocols](#auth-proto)
-    * [Kerberos](#kerberos)
-    * [LDAP](#LDAP)
-    * [OAuth2](#oauth)
-    * [SAML](#saml)
  * [Defensive Programming Techniques](#def)
     * [Preconditions](#pre)
     * [Post-conditions](#post)   
@@ -57,3 +52,4 @@
 * [Patterns and Principles](https://java-design-patterns.com/) :globe_with_meridians:
 * [A paid video course related to clean code](https://cleancoders.com/) :tv:
 ## Security
+### Auditing for [OWASP Top 10](https://owasp.org/www-project-top-ten/)
