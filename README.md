@@ -10,16 +10,18 @@
     * [Auditing for OWASP Top 10](#owasp)
     * [SSL/TLS](#tls)
     * [Security Headers](#security-headers)
- * [Defensive Programming Techniques](#def)
+ * [Legal](#legal)
+    * [Software Licences](#compl-lic)
+    * [Data protection laws](#data-pr-laws)
+ * [Defensive Programming](#def)
     * [Preconditions](#pre)
     * [Post-conditions](#post)   
     * [Mitigate corner case errors](#cornercase)
  * [Test-Driven Development](#tdd)
     * [Training the TDD mindset](#tdd-mindset)
     * [Behavioral-Driven Development](#bdd)
+    * [Testing priorities](#testing-prio)
     * ["The circle of purity"](#purity)
- * [Legal](#legal)
-    * [Compliant Licences](#compl-lic)
  * [Resiliency](#resiliency)       
  * [Fault Tolerance](#fault-tol) 
  * [Load Balancing](#load-balancing) 
@@ -70,3 +72,25 @@
  * `Strict-Transport-Security` - Lets a web site tell browsers that it should only be accessed using HTTPS, instead of using HTTP.
  * `Public-Key-Pins` - Associates a specific cryptographic public key with a certain web server to decrease the risk of MITM attacks with forged certificates
 
+## Legal
+### Software licences
+> A software license is a legal instrument governing the use or redistribution of software
+#### Licences types
+ * **Public domain** - Anyone can modify and use the software without any restrictions
+ * **Permissive** - They contain minimal requirements about how the software can be modified or redistributed. Popular with free and open source software
+ * **LGPL** - If you simply compile or link an LGPL-licensed library with your own code, you can release your application under any license you want, even a proprietary license. But if you modify the library or copy parts of it into your code, you’ll have to release your application under similar terms as the LGPL.
+ * **Copyleft** - These licenses allow you to modify the licensed code and distribute new works based on it, as long as you distribute any new works or adaptations under the same software license. Any derivative you create would also be limited to personal use only. “Derivatives” includes any new software you develop that contains the component. The catch here is that any end user of your software also has the right to modify the code. Therefore, you must make your own source code available. Exposing your source code may not be in your best interests.
+ * **Proprietary** - All rights are reserved. It’s generally used for proprietary software where the work may not be modified or redistributed
+
+#### Licence compliance utilities & tools
+ * [Choose a licence by your needs](https://choosealicense.com/)
+ * [Lookup for software licence permissions & restrictions](https://tldrlegal.com/)
+ * [FOSSA - Continuous dependency tracking & license checks to keep your code compliant](https://fossa.com/)
+ * [FOSSology - open source license compliance software system and toolkit](https://www.fossology.org/)
+
+### Data protection laws
+> Prohibits the disclosure or misuse of information about private individuals
+ * [Data protection laws around the world](https://www.dlapiperdataprotection.com/)
+ * [Data protection Impact Assessment](https://github.com/simonarnell/GDPRDPIAT/blob/master/Data%20Protection%20Impact%20Assessment.pdf)
+
+## Defensive programming 
