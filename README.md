@@ -38,7 +38,7 @@
 > The term <em>'code quality'</em> is a bit vague in general, we can understand code quality as everything related to code consistency, readability, performance, test coverage, vulnerabilities...
 ### Automatic checking
 #### Tools
- * SonarQube (Project level configuration)
+ * SonarQube (Tip: Use a custom configuration that fits your project)
  * FindBugs
  * Checkstyle
 #### Linters
@@ -50,6 +50,23 @@
     * [gist-based summary](https://gist.github.com/wojteklu/73c6914cc446146b8b533c0988cf8d29)
 * 'Refactoring' by Martin Fowler, Kent Beck :book:
 * [Patterns and Principles](https://java-design-patterns.com/) :globe_with_meridians:
-* [A paid video course related to clean code](https://cleancoders.com/) :tv:
+* [CleanCoders: Elevate your skill with software training videos](https://cleancoders.com/) :tv:
 ## Security
 ### Auditing for [OWASP Top 10](https://owasp.org/www-project-top-ten/)
+  * [OWASP Top 10 Common scenarios and preventions](https://www.owasp.org/images/0/0a/OWASP_Top_10_2017_GM_%28en%29.pdf)
+### SSL/TLS 
+ > SSL/TLS, the standard technology for keeping an internet connection secure and safeguarding any sensitive data that is being sent between two systems, preventing criminals from reading and modifying any information transferred, including potential personal details. The two systems can be a server and a client (for example, a shopping website and browser) or server to server (for example, an application with personal identifiable information or with payroll information)
+
+ * [What it is?](https://www.acunetix.com/blog/articles/tls-security-what-is-tls-ssl-part-1/)
+ * [Let's encrypt: Free TLS/SSL certificates](https://letsencrypt.org/)
+ * [Some TLS/SSL vulnerabilities you should be aware](https://www.acunetix.com/blog/articles/tls-vulnerabilities-attacks-final-part/)
+ * [Benefits of using HTTPS across your entire site](https://www.websecurity.digicert.com/security-topics/https-everywhere)
+ 
+### Security Headers
+ * `X-Frame-Options` - Sites can use this to avoid clickjacking attacks, by ensuring that their content is not embedded into other sites.
+ * `X-Content-Type-Options` - Configuring your server to return the `X-Content-Type-Options` HTTP response header set to `nosniff` will instruct browsers that support MIME sniffing to use the server-provided `Content-Type` and not interpret the content as a different content type.
+ * `Content-Security-Policy` - This helps guard against cross-site scripting attacks (XSS)
+ * `X-XSS-Protection` - Stops pages from loading when they detect reflected cross-site scripting (XSS) attacks. Although these protections are largely unnecessary in modern browsers when sites implement a strong `Content-Security-Policy` that disables the use of inline JavaScript (`'unsafe-inline'`), they can still provide protections for users of older web browsers that don't yet support CSP 
+ * `Strict-Transport-Security` - Lets a web site tell browsers that it should only be accessed using HTTPS, instead of using HTTP.
+ * `Public-Key-Pins` - Associates a specific cryptographic public key with a certain web server to decrease the risk of MITM attacks with forged certificates
+
