@@ -15,13 +15,15 @@
     * [Data protection laws](#data-pr-laws)
  * [Defensive Programming](#def)
     * [Preconditions](#pre)
-    * [Post-conditions](#post)   
-    * [Mitigate corner case errors](#cornercase)
+    * [Corner case errors](#cornercase)
  * [Test-Driven Development](#tdd)
     * [Training the TDD mindset](#tdd-mindset)
     * [Behavioral-Driven Development](#bdd)
     * [Testing priorities](#testing-prio)
     * ["The circle of purity"](#purity)
+ * [Transactions](#tx)
+    * [Local Transactions](#local-tx)
+    * [Distributed Transactions](#dist-tx)
  * [Resiliency](#resiliency)       
  * [Fault Tolerance](#fault-tol) 
  * [Load Balancing](#load-balancing) 
@@ -32,9 +34,7 @@
  * [Metrics](#metrics) 
  * [High Availability](#high-avaibility) 
  * [Backup/Restore process](#backup)
- * [Transactions](#tx)
-    * [Local Transactions](#local-tx)
-    * [Distributed Transactions](#dist-tx)
+
  
 ## Code quality
 > The term <em>'code quality'</em> is a bit vague in general, we can understand code quality as everything related to code consistency, readability, performance, test coverage, vulnerabilities...
@@ -94,3 +94,37 @@
  * [Data protection Impact Assessment](https://github.com/simonarnell/GDPRDPIAT/blob/master/Data%20Protection%20Impact%20Assessment.pdf)
 
 ## Defensive programming 
+> Defensive programming ensures the continuing function of a piece of software under unforeseen circumstances. 
+
+> Defend against the impossible, because the impossible will happen.  
+
+> It aids the future maintainer of the code
+### Preconditions
+> A condition or predicate that must always be true just prior to the execution of some section of code.
+
+ * Guava `Precondtions`:
+ ```java
+ public void accept(int value, Object myObj) {
+  Preconditions.checkArgument(value >= 0, "negative value");
+  Preconditions.checkNotNull(myObj);
+  ...
+}
+ ``` 
+ * Apache Commons `Validate`
+  ```java
+  public void accept(int value, Object myObj) {
+   Validate.isTrue(value >= 0, "negative value");
+   Validate.notNull(myObj);
+   ...
+ }
+  ``` 
+
+ * Others
+    * [Spring Assertions](https://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/util/Assert.html)
+    * [valid4j - design by contract](http://www.valid4j.org/)
+    * [Bean Validation JSR-303](https://jcp.org/en/jsr/detail?id=303)
+### Corner case errors
+> Occurs outside of normal operating parameters, specifically when multiple environmental variables or conditions are simultaneously at extreme levels, even though each parameter is within the specified range for that parameter
+ * [Java corner cases cheat sheet](https://ge0ffrey.github.io/ge0ffrey-presentations/cornerCaseCheatSheet/#/
+)
+ * [Common concurrency pitfalls](https://www.baeldung.com/java-common-concurrency-pitfalls)
