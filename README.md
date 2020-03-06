@@ -1,7 +1,7 @@
 # 
 
 ![Version](https://img.shields.io/badge/version-1.0-blue)
-> It contains guides, libraries, cookbooks, code snippets to cover different aspects of an web application server. This is more a personal view of things that are important for a project but you can prioritize by your needs. The tools that I recommend are mostly open source/free. 
+
 ## Table of contents
 * [Code Quality](#code-quality)
     * [Automatic checking](#auto-check)
