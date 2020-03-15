@@ -328,7 +328,7 @@ Change detectors provide negative value, since the tests do not catch any defect
 
 ### "The circle of purity" (from [Unit Testing like a Pro: The Circle of Purity](https://www.youtube.com/watch?v=1Z_h55jMe-M))
 
-The most valuable tests are pure functions that are side-effect free and have a deterministic behaviour. But in reality it is hard to achieve them beacuse our applications are highly dependent on external services or databases that requires more complexity to integrate them in your tests. There are plenty of frameworks like [Mockito](https://site.mockito.org/) or [EasyMock](https://easymock.org/) that allow developers to fake the external service under the same contract as the real object. 
+The most valuable tests are pure functions (input->your function->output) that are side-effect free and have a deterministic behaviour. But in reality it is hard to achieve them beacuse our applications are highly dependent on external services or databases that requires more complexity to integrate them in your tests. There are plenty of frameworks like [Mockito](https://site.mockito.org/) or [EasyMock](https://easymock.org/) that allow developers to fake the external service under the same contract as the real object. 
 
 For example you have the following code: 
 
