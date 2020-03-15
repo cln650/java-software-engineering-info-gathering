@@ -16,7 +16,7 @@
  * [Defensive Programming](#def)
     * [Preconditions](#pre)
     * [Corner case errors](#cornercase)
- * [Test-Driven Development](#tdd)
+ * [Testing](#tdd)
     * [Training the TDD mindset](#tdd-mindset)
     * [Behavioral-Driven Development](#bdd)
     * [Testing priorities](#testing-prio)
@@ -128,3 +128,104 @@
  * [Java corner cases cheat sheet](https://ge0ffrey.github.io/ge0ffrey-presentations/cornerCaseCheatSheet/#/
 )
  * [Common concurrency pitfalls](https://www.baeldung.com/java-common-concurrency-pitfalls)
+
+## Testing
+
+> Unit testing is a level of software testing where individual units/ components of a software are tested.
+
+### Test-Driven Development (TDD)
+
+True Test-Driven Development is very simple, it is "**RED, GREEN, REFACTOR**"
+ - We write a test, run it and see it fail (**RED**).
+ - We write the minimum code to make it pass, run it and see it pass (**GREEN**).
+ - We refactor the code, and the test, to make them as clean, expressive, elegant and simple as we can imagine (**REFACTOR**).
+ 
+For most of developers it can be a uncomfortable process but it can be trained using [Katas](https://en.wikipedia.org/wiki/Karate_kata):
+* [TDD Katas](https://github.com/wix/tdd-katas)
+
+### Behavioral-Driven Development (BDD) structure
+
+> The goal of BDD is a business readable and domain-specific language that allows you to describe a system’s behavior without explaining how that behavior is implemented.
+
+It helps also to structure your unit tests like this:
+
+```
+“As a [role] I want [feature] so that [benefit]”. Acceptance criteria should be written in terms of scenarios and implemented as classes:
+Given [initial context],
+when [event occurs],
+then [ensure some outcomes].
+```
+
+For example, [Spock Framework](http://spockframework.org/) is using a BDD structure:
+```
+def "events are published to all subscribers"() {
+  given:
+  def subscriber1 = Mock(Subscriber)
+  def subscriber2 = Mock(Subscriber)
+  def publisher = new Publisher()
+  publisher.add(subscriber1)
+  publisher.add(subscriber2)
+
+  when:
+  publisher.fire("event")
+
+  then:
+  1 * subscriber1.receive("event")
+  1 * subscriber2.receive("event")
+}
+```
+
+### Testing goals
+
+1. Tests should be **sensitive** and should fail for any bug
+2. Tests should be **maintainable**:
+   * Expressive
+   * Isolated
+   * Robust
+   * Low overlap
+   * Fast
+   * Small
+3. Tests should bring real value to your project. Do not aim for high coverage as a number. Aim to cover weak spots of your code. Tests should be **ruthless** and should have **no mercy** to your code. 
+
+### Testing priorities
+
+> What should you test first?
+
+1. Code that is hard to understand
+2. Code that takes a long time to reproduce using the UI/Dev/Manual testing
+3. Bugs (before fixing it)
+4. `for`/`if`/`while`
+5. Thrown exception
+6. A method that just call other methods
+7. Trivial code like `setters` or `getters`
+8. Legacy code with no bugs or changes
+
+### Risk-Driven Testing (from [Google Testing Blog](https://testing.googleblog.com/))
+
+We are all conditioned to write tests as we code: unit, functional, UI. We are professionals, after all. Many of us like how small tests let us work quickly, and how larger tests inspire safety and closure. Or we may just anticipate flak during review. We are so used to these tests that ofter we no longer question why we write them. This can be wasteful and dangerous. 
+
+Tests are a means to an end. To reduce the key risks of a project, and to get the biggest bang for the buck. This bang may not always come from the tests that standard practice has you write, or not even from tests at all.
+
+Two examples:
+
+###### Example #1
+> "We built a new debugging aid. We wrote unit, integration, and UI tests. We were ready to launch."
+
+Outstanding practice. **Missing the mark**
+
+Our key risks were that we'd corrupt out data or bring down our servers for the sake of a debugging aid. None of the tests addressed this, but they gave a false sense of safety and "being done".
+**We stopped the launch**
+
+###### Example #2
+> "We wanted to turn down a feature, so we needed to alert affected users. Again we had unit and integration tests, and even one expensive end-to-end test."
+
+Standard practice. **Wasted effort**
+
+The alert was so critical it actually needed end-to-end coverage for all scenarios. But it would be live for only three releases. The cheapest effective test? Manual testing before each release. 
+
+**A better approach: Risks First**
+
+For every project or feature, *think* about testing. Brainstorm your key risks and your best options to reduce them. Do this at the start so you don't waste effort and can adapt your design. Write them down as a QA design so you can point to it in reviews and discussions. 
+To be sure, standard practice remains a good idea in most cases. Small tests are cheap and speed up coding and maintenance, and larger tests safeguard core use-cases and integration. 
+
+Just remember: Your tests are a means. **The bang is what counts**. It's your job to **maximize it**.
