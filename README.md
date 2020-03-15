@@ -17,9 +17,12 @@
     * [Preconditions](#pre)
     * [Corner case errors](#cornercase)
  * [Testing](#tdd)
-    * [Training the TDD mindset](#tdd-mindset)
-    * [Behavioral-Driven Development](#bdd)
+    * [Test-Driven Development (TDD)](#tdd-mindset)
+    * [Behavioral-Driven Development (BDD) structure](#bdd)
+    * [Testing goals](#testing-goals)
     * [Testing priorities](#testing-prio)
+    * [Risk-Driven Testing]
+    * [Change-Detector Tests Considered Harmful]
     * ["The circle of purity"](#purity)
  * [Transactions](#tx)
     * [Local Transactions](#local-tx)
@@ -276,3 +279,43 @@ verify_in_order
 It is tempting to write a test like this because it requires little thought and will run quickly. This is a change-detector test—it is a transformation of the same information in the code under test—and it breaks in response to any change to the production code, without verifying correct behavior of either the original or modified production code.
 
 Change detectors provide negative value, since the tests do not catch any defects, and the added maintenance cost slows down development. These tests should be re-written or deleted. 
+
+
+### "The circle of purity" (from [Unit Testing like a Pro: The Circle of Purity](https://www.youtube.com/watch?v=1Z_h55jMe-M))
+
+The most valuable tests are pure functions that are side-effect free and have a deterministic behaviour. But in reality it is hard to achieve them beacuse our applications are highly dependent on external services or databases that requires more complexity to integrate them in your tests. There are plenty of frameworks like [Mockito](https://site.mockito.org/) or [EasyMock](https://easymock.org/) that allow developers to fake the external service under the same contract as the real object. 
+
+For example you have the following code: 
+
+```
+public long placeOrder(long userId, Cart cart) {
+   var user = userRepo.findById(userId);
+   var order = new Order();
+   order.setDeliveryCountry(user.getAddress().getCountry());
+   orderRepo.save(order);
+   return order.getId();
+}
+```
+
+You can test the code by stubbing the `userRepo.findById(userId)` and to mock the `orderRepo.save(order)` but the question is what is the most important part of this method? 
+
+An alternative to the first test code is to leave the side-effects outside the business logic by extracting the important stuff in a **pure function**:
+
+```
+public long placeOrder(long userId, Cart cart) {
+   var user = userRepo.findById(userId);
+   var order = this.createOrder(User user, Cart cart);
+   orderRepo.save(order);
+   return order.getId();
+}
+
+@PureFunction
+@VisibleForTesting
+public Order createOrder(User user, Cart cart) {
+   var order = new Order();
+   order.setDeliveryCountry(user.getAddress().getCountry());
+   return order;
+}
+```
+
+Now you have a mock-free unit test that doesn't have any dependecies, just pure and testable logic. The trivial part like stubbed/mocked database interactions can be ignored since it doesn't bring any value. 
