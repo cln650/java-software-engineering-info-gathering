@@ -337,14 +337,15 @@ public long placeOrder(long userId, Cart cart) {
    var user = userRepo.findById(userId);
    var order = new Order();
    order.setDeliveryCountry(user.getAddress().getCountry());
+   // heavy logic
    orderRepo.save(order);
    return order.getId();
 }
 ```
 
-You can test the code by stubbing the `userRepo.findById(userId)` and to mock the `orderRepo.save(order)` but the question is what is the most important part of this method? 
+You can test the code by stubbing the `userRepo.findById(userId)` and to mock the `orderRepo.save(order)`. The problem is those stubs/mocks are less important since they do not represent the real object and testing them gives a false sense of security. The real complexity should be isolated and tested separately. 
 
-An alternative to the first test code is to leave the side-effects outside the business logic by extracting the important stuff in a **pure function**:
+So as an alternative to the first test code is to leave the side-effects outside the business logic by extracting the important stuff in a **pure function**:
 
 ```
 public long placeOrder(long userId, Cart cart) {
@@ -359,6 +360,7 @@ public long placeOrder(long userId, Cart cart) {
 public Order createOrder(User user, Cart cart) {
    var order = new Order();
    order.setDeliveryCountry(user.getAddress().getCountry());
+   // heavy logic
    return order;
 }
 ```
